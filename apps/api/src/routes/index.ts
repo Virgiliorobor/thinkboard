@@ -236,6 +236,15 @@ export async function registerRoutes(app: FastifyInstance) {
     return mapResearchPublic(research, true);
   });
 
+  app.delete('/api/researches/:slug', { preHandler: requireEditor }, async (request, reply) => {
+    const { slug } = request.params as { slug: string };
+    const research = await getResearchBySlug(slug);
+    if (!research) return reply.status(404).send({ error: 'Not found' });
+
+    await db.delete(researches).where(eq(researches.id, research.id));
+    return { ok: true, slug };
+  });
+
   app.get('/api/researches/:slug', async (request, reply) => {
     const { slug } = request.params as { slug: string };
     const research = await getResearchBySlug(slug);

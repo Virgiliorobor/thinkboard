@@ -14,6 +14,7 @@ export function MagazinePage() {
   const [entries, setEntries] = useState<EntryCard[]>([]);
   const [activeTopic, setActiveTopic] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
@@ -46,6 +47,24 @@ export function MagazinePage() {
 
   if (!research) return <p className="text-muted">Loading…</p>;
 
+  const removeResearch = async () => {
+    if (
+      !slug ||
+      !window.confirm(
+        `Delete "${research.name}" and all its entries, topics, and trails? This cannot be undone.`
+      )
+    ) {
+      return;
+    }
+    setDeleting(true);
+    try {
+      await api.deleteResearch(slug);
+      navigate('/', { replace: true });
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   return (
     <div>
       <div className="mb-8">
@@ -74,6 +93,14 @@ export function MagazinePage() {
             >
               Import JSON
             </Link>
+            <button
+              type="button"
+              onClick={removeResearch}
+              disabled={deleting}
+              className="px-4 py-2 text-red-600 border border-red-200 rounded-full text-sm hover:bg-red-50 disabled:opacity-50"
+            >
+              {deleting ? 'Deleting…' : 'Delete research'}
+            </button>
           </>
         )}
         {trails.map((trail) => (

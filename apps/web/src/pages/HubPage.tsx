@@ -6,11 +6,32 @@ import { useEditor } from '../hooks/useEditor';
 export function HubPage() {
   const [researches, setResearches] = useState<Research[]>([]);
   const [loading, setLoading] = useState(true);
+  const [deleting, setDeleting] = useState<string | null>(null);
   const { editor } = useEditor();
 
-  useEffect(() => {
+  const load = () => {
+    setLoading(true);
     api.researches().then(setResearches).finally(() => setLoading(false));
-  }, []);
+  };
+
+  useEffect(load, []);
+
+  const remove = async (r: Research) => {
+    if (
+      !window.confirm(
+        `Delete "${r.name}" and all its entries, topics, and trails? This cannot be undone.`
+      )
+    ) {
+      return;
+    }
+    setDeleting(r.slug);
+    try {
+      await api.deleteResearch(r.slug);
+      setResearches((prev) => prev.filter((x) => x.slug !== r.slug));
+    } finally {
+      setDeleting(null);
+    }
+  };
 
   if (loading) return <p className="text-muted">Loading…</p>;
 
@@ -33,28 +54,43 @@ export function HubPage() {
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {researches.map((r) => (
-          <Link
+          <div
             key={r.id}
-            to={r.locked ? `/r/${r.slug}/unlock` : `/r/${r.slug}`}
-            className="group block bg-card rounded-xl shadow-card p-6 hover:-translate-y-1 transition-transform"
+            className="relative bg-card rounded-xl shadow-card p-6 hover:-translate-y-1 transition-transform"
           >
-            <div className="flex items-start justify-between gap-2">
-              <h2 className="font-serif text-2xl font-medium mb-2 group-hover:text-accent transition-colors">
-                {r.name}
-              </h2>
-              {r.locked && <span title="Private">🔒</span>}
-            </div>
-            {r.description && (
-              <p className="text-sm text-muted line-clamp-2 mb-4">{r.description}</p>
+            {editor && (
+              <button
+                type="button"
+                onClick={() => remove(r)}
+                disabled={deleting === r.slug}
+                className="absolute top-4 right-4 text-xs text-red-600/80 hover:text-red-700 disabled:opacity-50"
+                title="Delete research"
+              >
+                {deleting === r.slug ? 'Deleting…' : 'Delete'}
+              </button>
             )}
-            <div className="flex gap-4 text-xs text-muted">
-              <span>{r.entryCount ?? 0} entries</span>
-              <span>{r.topicCount ?? 0} topics</span>
-              {r.isPrivate && !r.locked && (
-                <span className="text-emerald-600">unlocked</span>
+            <Link
+              to={r.locked ? `/r/${r.slug}/unlock` : `/r/${r.slug}`}
+              className="group block"
+            >
+              <div className="flex items-start justify-between gap-2 pr-14">
+                <h2 className="font-serif text-2xl font-medium mb-2 group-hover:text-accent transition-colors">
+                  {r.name}
+                </h2>
+                {r.locked && <span title="Private">🔒</span>}
+              </div>
+              {r.description && (
+                <p className="text-sm text-muted line-clamp-2 mb-4">{r.description}</p>
               )}
-            </div>
-          </Link>
+              <div className="flex gap-4 text-xs text-muted">
+                <span>{r.entryCount ?? 0} entries</span>
+                <span>{r.topicCount ?? 0} topics</span>
+                {r.isPrivate && !r.locked && (
+                  <span className="text-emerald-600">unlocked</span>
+                )}
+              </div>
+            </Link>
+          </div>
         ))}
       </div>
 
