@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { api, ApiError, type EntryCard, type Research, type Topic, type Trail } from '../lib/api';
 import { MagazineGrid } from '../components/MagazineGrid';
 import { useEditor } from '../hooks/useEditor';
+import { useRefetchMetadata } from '../hooks/useRefetchMetadata';
 
 export function MagazinePage() {
   const { slug } = useParams<{ slug: string }>();
@@ -15,6 +16,18 @@ export function MagazinePage() {
   const [activeTopic, setActiveTopic] = useState<string | null>(null);
   const [locked, setLocked] = useState(false);
   const [deleting, setDeleting] = useState(false);
+
+  const reloadEntries = () => {
+    if (!slug || locked) return;
+    api.entries(slug, activeTopic ? { topic: activeTopic } : undefined).then(setEntries);
+  };
+
+  const {
+    refetchAll,
+    loading: refetching,
+    status: refetchStatus,
+    error: refetchError,
+  } = useRefetchMetadata(slug, reloadEntries);
 
   useEffect(() => {
     if (!slug) return;
@@ -97,6 +110,14 @@ export function MagazinePage() {
             </Link>
             <button
               type="button"
+              onClick={refetchAll}
+              disabled={refetching || deleting}
+              className="px-4 py-2 bg-white border border-stone-200 rounded-full text-sm hover:border-accent/50 disabled:opacity-50"
+            >
+              {refetching ? 'Fetching…' : 'Fetch metadata'}
+            </button>
+            <button
+              type="button"
               onClick={removeResearch}
               disabled={deleting}
               className="px-4 py-2 text-red-600 border border-red-200 rounded-full text-sm hover:bg-red-50 disabled:opacity-50"
@@ -116,6 +137,14 @@ export function MagazinePage() {
           </Link>
         ))}
       </div>
+
+      {(refetchStatus || refetchError) && (
+        <p
+          className={`text-sm mb-4 ${refetchError ? 'text-red-600' : 'text-emerald-700'}`}
+        >
+          {refetchError ?? refetchStatus}
+        </p>
+      )}
 
       <div className="flex flex-wrap gap-2 mb-8">
         <button

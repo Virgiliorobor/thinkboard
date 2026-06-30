@@ -17,6 +17,7 @@ import { slugify, excerptFrom, uniqueSlug } from '../lib/utils.js';
 import { extractArticle } from '../services/extractor.js';
 import { parseResearchTxt } from '../services/importer.js';
 import { bulkImportSchema, runBulkImport } from '../services/bulk-import.js';
+import { refetchEntryMetadata, refetchResearchMetadata } from '../services/refetch-entry.js';
 import { requireEditor, isEditor, hasResearchAccess, hasTrailAccess, setUnlockCookie } from '../lib/auth.js';
 import { hashPassword, verifyPassword, unlockToken } from '../lib/password.js';
 
@@ -494,6 +495,33 @@ export async function registerRoutes(app: FastifyInstance) {
         createdAt: c.createdAt.toISOString(),
       })),
     };
+  });
+
+  app.post('/api/entries/:id/refetch', { preHandler: requireEditor }, async (request, reply) => {
+    const { id } = request.params as { id: string };
+    const result = await refetchEntryMetadata(id);
+    if (result.error === 'Not found') return reply.status(404).send({ error: 'Not found' });
+    if (!result.ok) return reply.status(422).send({ error: result.error, partial: true });
+    const comment = await getPrimaryComment(id);
+    return mapEntryCard(result.entry, comment);
+  });
+
+  app.post('/api/researches/:slug/refetch-metadata', { preHandler: requireEditor }, async (request, reply) => {
+    const { slug } = request.params as { slug: string };
+    const research = await getResearchBySlug(slug);
+    if (!research) return reply.status(404).send({ error: 'Not found' });
+
+    const body = z
+      .object({
+        missingOnly: z.boolean().optional(),
+        limit: z.number().min(1).max(25).optional(),
+      })
+      .parse(request.body ?? {});
+
+    return refetchResearchMetadata(research.id, {
+      missingOnly: body.missingOnly ?? true,
+      limit: body.limit ?? 15,
+    });
   });
 
   app.post('/api/capture/preview', { preHandler: requireEditor }, async (request) => {

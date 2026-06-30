@@ -166,6 +166,16 @@ export const api = {
       `/api/researches/${encodeURIComponent(slug)}/inbox/publish-all`,
       emptyPost
     ),
+  refetchEntry: (id: string) =>
+    request<EntryCard>(`/api/entries/${encodeURIComponent(id)}/refetch`, emptyPost),
+  refetchMetadata: (
+    slug: string,
+    options?: { missingOnly?: boolean; limit?: number }
+  ) =>
+    request<{ refetched: number; failed: number; remaining: number; total: number; errors: string[] }>(
+      `/api/researches/${encodeURIComponent(slug)}/refetch-metadata`,
+      { method: 'POST', body: JSON.stringify(options ?? {}) }
+    ),
   search: (q: string, research?: string) => {
     const params = new URLSearchParams({ q });
     if (research) params.set('research', research);
