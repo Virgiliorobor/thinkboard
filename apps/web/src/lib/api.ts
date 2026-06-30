@@ -80,13 +80,15 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
   return res.json();
 }
 
+const emptyPost = { method: 'POST' as const, body: '{}' };
+
 export const api = {
   editorLogin: (password: string) =>
     request<{ ok: boolean; editor: boolean }>('/api/auth/editor-login', {
       method: 'POST',
       body: JSON.stringify({ password }),
     }),
-  editorLogout: () => request('/api/auth/editor-logout', { method: 'POST' }),
+  editorLogout: () => request('/api/auth/editor-logout', emptyPost),
   isEditor: () => request<{ editor: boolean }>('/api/auth/editor'),
   unlockResearch: (slug: string, password: string) =>
     request<{ ok: boolean }>(`/api/auth/research-unlock/${slug}`, {
@@ -109,8 +111,8 @@ export const api = {
   }) => request<Research>('/api/researches', { method: 'POST', body: JSON.stringify(data) }),
   deleteResearch: (slug: string) =>
     request<{ ok: boolean; slug: string }>(
-      `/api/researches/${encodeURIComponent(slug)}/delete`,
-      { method: 'POST' }
+      `/api/researches/${encodeURIComponent(slug)}`,
+      { method: 'DELETE' }
     ),
   research: (slug: string) => request<Research>(`/api/researches/${encodeURIComponent(slug)}`),
   topics: (slug: string) => request<Topic[]>(`/api/researches/${slug}/topics`),
@@ -158,11 +160,11 @@ export const api = {
       body: JSON.stringify(payload),
     }),
   publishInbox: (id: string) =>
-    request<EntryCard>(`/api/inbox/${encodeURIComponent(id)}/publish`, { method: 'POST' }),
+    request<EntryCard>(`/api/inbox/${encodeURIComponent(id)}/publish`, emptyPost),
   publishAllInbox: (slug: string) =>
     request<{ published: number }>(
       `/api/researches/${encodeURIComponent(slug)}/inbox/publish-all`,
-      { method: 'POST' }
+      emptyPost
     ),
   search: (q: string, research?: string) => {
     const params = new URLSearchParams({ q });

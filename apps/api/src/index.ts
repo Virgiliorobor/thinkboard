@@ -11,6 +11,20 @@ const port = Number(process.env.API_PORT ?? 3001);
 async function main() {
   const app = Fastify({ logger: true });
 
+  // Accept POST with Content-Type: application/json and an empty body (delete, publish, logout).
+  app.removeContentTypeParser('application/json');
+  app.addContentTypeParser('application/json', { parseAs: 'string' }, (_req, body, done) => {
+    if (body === '' || body === undefined || body === null) {
+      done(null, {});
+      return;
+    }
+    try {
+      done(null, JSON.parse(body as string));
+    } catch (err) {
+      done(err as Error, undefined);
+    }
+  });
+
   await app.register(cors, {
     origin: true,
     credentials: true,
