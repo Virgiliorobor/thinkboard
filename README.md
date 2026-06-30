@@ -70,13 +70,8 @@ Repo: [github.com/Virgiliorobor/thinkboard](https://github.com/Virgiliorobor/thi
    PUBLIC_API_URL=https://your-domain.com
    ```
 6. **Domain:** assign your domain to the **`web`** service (port **80** inside the container). The nginx config proxies `/api` to the api service.
-7. **Deploy** → after first successful deploy, run migrations (Coolify → api container → Terminal):
-   ```bash
-   npm run db:migrate
-   npm run db:seed
-   ```
-
-If Compose still won’t load, paste the contents of `compose.yaml` into Coolify’s compose editor manually.
+7. **Deploy** → migrations run automatically when the **api** container starts (see `docker-entrypoint.sh`).
+8. **Seed data:** use the web UI (Editor login → New research → upload `links and research.txt` → Inbox). Do not use `db:seed` on the server.
 
 ## Agent export
 
