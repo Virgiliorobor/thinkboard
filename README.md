@@ -73,6 +73,20 @@ Repo: [github.com/Virgiliorobor/thinkboard](https://github.com/Virgiliorobor/thi
 7. **Deploy** → migrations run automatically when the **api** container starts (see `docker-entrypoint.sh`).
 8. **Seed data:** use the web UI (Editor login → New research → upload `links and research.txt` → Inbox). Do not use `db:seed` on the server.
 
+### Fix: `password authentication failed for user "thinkboard"`
+
+Postgres sets the password **only on first boot**. If you changed `POSTGRES_*` in Coolify after the first deploy, the old password remains in the `pgdata` volume.
+
+1. **Stop** the Thinkboard stack in Coolify
+2. **Delete the postgres volume** (`pgdata`) — Storages / Persistent Storage / Volumes for this resource
+3. Confirm Environment (same password for postgres + api):
+   ```
+   POSTGRES_USER=thinkboard
+   POSTGRES_PASSWORD=<one-password>
+   POSTGRES_DB=thinkboard
+   ```
+4. **Redeploy** — look in api logs for `Migrations complete.`
+
 ## Agent export
 
 Authenticated GET:
