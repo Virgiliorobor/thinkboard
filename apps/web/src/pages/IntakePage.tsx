@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api } from '../lib/api';
+import { api, ApiError } from '../lib/api';
 
 type ImportMode = 'none' | 'txt' | 'json';
+
+function entryCount(payload: Record<string, unknown> | null): number | null {
+  if (!payload?.entries || !Array.isArray(payload.entries)) return null;
+  return payload.entries.length;
+}
 
 export function IntakePage() {
   const navigate = useNavigate();
@@ -14,6 +19,8 @@ export function IntakePage() {
   const [importTxt, setImportTxt] = useState<string | null>(null);
   const [importJson, setImportJson] = useState<Record<string, unknown> | null>(null);
   const [loading, setLoading] = useState(false);
+  const [phase, setPhase] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -26,13 +33,15 @@ export function IntakePage() {
           setImportJson(JSON.parse(text));
           setImportTxt(null);
           setImportMode('json');
+          setError(null);
         } catch {
-          alert('Invalid JSON file');
+          setError('Invalid JSON file — check the format.');
         }
       } else {
         setImportTxt(text);
         setImportJson(null);
         setImportMode('txt');
+        setError(null);
       }
     };
     reader.readAsText(file);
@@ -42,6 +51,8 @@ export function IntakePage() {
     e.preventDefault();
     if (!name.trim()) return;
     setLoading(true);
+    setError(null);
+    setPhase('Creating research…');
     try {
       const jsonResearch =
         importJson?.research && typeof importJson.research === 'object'
@@ -49,31 +60,46 @@ export function IntakePage() {
           : null;
 
       const research = await api.createResearch({
-        name: (jsonResearch?.name as string) || name,
-        description: (jsonResearch?.description as string) || description,
-        isPrivate: (jsonResearch?.isPrivate as boolean) ?? isPrivate,
+        name: name.trim(),
+        description: description.trim() || (jsonResearch?.description as string) || undefined,
+        isPrivate,
         password: isPrivate ? password : undefined,
         seedTopics: !importJson?.topics,
-        seedTrails: true,
+        seedTrails: !importJson,
       });
 
       if (importJson) {
+        const count = entryCount(importJson);
+        setPhase(count ? `Importing ${count} entries…` : 'Importing entries…');
         const payload = { ...importJson };
-        if (payload.research && typeof payload.research === 'object') {
-          payload.research = { ...(payload.research as object), name: research.name };
+        delete payload.research;
+        const result = await api.bulkImport(research.slug, payload);
+        if (result.imported === 0 && count && count > 0) {
+          throw new Error('No entries were imported. They may already exist in this research.');
         }
-        await api.bulkImport(research.slug, payload);
         navigate(`/r/${research.slug}/inbox`);
       } else if (importTxt) {
+        setPhase('Importing links…');
         await api.importTxt(research.slug, importTxt);
         navigate(`/r/${research.slug}/inbox`);
       } else {
         navigate(`/r/${research.slug}`);
       }
+    } catch (err) {
+      const message =
+        err instanceof ApiError
+          ? err.message
+          : err instanceof Error
+            ? err.message
+            : 'Something went wrong';
+      setError(message);
+      setPhase(null);
     } finally {
       setLoading(false);
     }
   };
+
+  const importCount = entryCount(importJson);
 
   return (
     <div className="max-w-xl mx-auto">
@@ -90,6 +116,11 @@ export function IntakePage() {
             className="w-full px-4 py-3 rounded-lg border border-stone-200 bg-white focus:outline-none focus:ring-2 focus:ring-accent/30"
             required
           />
+          {importMode === 'json' && (
+            <p className="text-xs text-muted mt-1">
+              Your form name is used — the JSON <code className="text-xs">research.name</code> is ignored.
+            </p>
+          )}
         </div>
 
         <div>
@@ -140,22 +171,24 @@ export function IntakePage() {
           />
           {importMode === 'json' && (
             <p className="text-xs text-emerald-600 mt-2">
-              JSON loaded — entries go to inbox for review.
+              JSON loaded{importCount ? ` — ${importCount} entries` : ''} (go to inbox after create).
             </p>
           )}
           {importMode === 'txt' && (
-            <p className="text-xs text-emerald-600 mt-2">
-              TXT loaded — entries go to inbox for review.
-            </p>
+            <p className="text-xs text-emerald-600 mt-2">TXT loaded — entries go to inbox for review.</p>
           )}
         </div>
+
+        {error && (
+          <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-3">{error}</p>
+        )}
 
         <button
           type="submit"
           disabled={loading}
           className="w-full py-3 bg-ink text-cream rounded-lg font-medium hover:bg-ink/90 disabled:opacity-50 transition-colors"
         >
-          {loading ? 'Creating…' : 'Create research'}
+          {loading ? phase ?? 'Working…' : 'Create research'}
         </button>
       </form>
     </div>

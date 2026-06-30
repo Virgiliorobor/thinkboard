@@ -26,6 +26,7 @@ export interface Research {
   locked?: boolean;
   createdAt: string;
   entryCount?: number;
+  inboxCount?: number;
   topicCount?: number;
   editor?: boolean;
 }
@@ -98,7 +99,7 @@ export const api = {
     seedTrails?: boolean;
   }) => request<Research>('/api/researches', { method: 'POST', body: JSON.stringify(data) }),
   deleteResearch: (slug: string) =>
-    request<{ ok: boolean; slug: string }>(`/api/researches/${slug}`, { method: 'DELETE' }),
+    request<{ ok: boolean; slug: string }>(`/api/researches/${slug}/delete`, { method: 'POST' }),
   research: (slug: string) => request<Research>(`/api/researches/${slug}`),
   topics: (slug: string) => request<Topic[]>(`/api/researches/${slug}/topics`),
   trails: (slug: string) => request<Trail[]>(`/api/researches/${slug}/trails`),

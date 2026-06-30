@@ -60,6 +60,8 @@ export function MagazinePage() {
     try {
       await api.deleteResearch(slug);
       navigate('/', { replace: true });
+    } catch (err) {
+      alert(err instanceof ApiError ? err.message : 'Could not delete research.');
     } finally {
       setDeleting(false);
     }

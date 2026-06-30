@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { api, type Research } from '../lib/api';
+import { api, ApiError, type Research } from '../lib/api';
 import { useEditor } from '../hooks/useEditor';
 
 export function HubPage() {
   const [researches, setResearches] = useState<Research[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
   const { editor } = useEditor();
 
   const load = () => {
@@ -25,9 +26,14 @@ export function HubPage() {
       return;
     }
     setDeleting(r.slug);
+    setDeleteError(null);
     try {
       await api.deleteResearch(r.slug);
       setResearches((prev) => prev.filter((x) => x.slug !== r.slug));
+    } catch (err) {
+      setDeleteError(
+        err instanceof ApiError ? err.message : 'Could not delete research. Try logging in again.'
+      );
     } finally {
       setDeleting(null);
     }
@@ -52,6 +58,12 @@ export function HubPage() {
         )}
       </div>
 
+      {deleteError && (
+        <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-3 mb-6">
+          {deleteError}
+        </p>
+      )}
+
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {researches.map((r) => (
           <div
@@ -63,7 +75,7 @@ export function HubPage() {
                 type="button"
                 onClick={() => remove(r)}
                 disabled={deleting === r.slug}
-                className="absolute top-4 right-4 text-xs text-red-600/80 hover:text-red-700 disabled:opacity-50"
+                className="absolute top-4 right-4 z-10 text-xs text-red-600/80 hover:text-red-700 disabled:opacity-50"
                 title="Delete research"
               >
                 {deleting === r.slug ? 'Deleting…' : 'Delete'}
@@ -83,7 +95,10 @@ export function HubPage() {
                 <p className="text-sm text-muted line-clamp-2 mb-4">{r.description}</p>
               )}
               <div className="flex gap-4 text-xs text-muted">
-                <span>{r.entryCount ?? 0} entries</span>
+                <span>{r.entryCount ?? 0} published</span>
+                {editor && (r.inboxCount ?? 0) > 0 && (
+                  <span className="text-amber-700">{r.inboxCount} in inbox</span>
+                )}
                 <span>{r.topicCount ?? 0} topics</span>
                 {r.isPrivate && !r.locked && (
                   <span className="text-emerald-600">unlocked</span>

@@ -172,7 +172,7 @@ export async function runBulkImport(
     let heroImage: string | null = null;
     let author: string | null = null;
     let type = item.type ?? (item.url ? 'article' : 'note');
-    const shouldFetch = item.fetch !== false && fetchArticles && !!item.url;
+    const shouldFetch = fetchArticles && item.fetch !== false && !!item.url;
 
     if (shouldFetch && item.url) {
       const extracted = await extractArticle(item.url);

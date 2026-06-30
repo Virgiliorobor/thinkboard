@@ -22,7 +22,11 @@ export function InboxPage() {
   return (
     <div>
       <h1 className="font-serif text-3xl font-bold mb-2">Import inbox</h1>
-      <p className="text-muted mb-8">Review imported entries before they appear in your magazine.</p>
+      <p className="text-muted mb-2">Review imported entries before they appear in your magazine.</p>
+      {entries.length > 0 && (
+        <p className="text-sm text-muted mb-8">{entries.length} entries waiting to publish</p>
+      )}
+      {!entries.length && <div className="mb-8" />}
 
       {entries.map((e) => (
         <div key={e.id} className="flex items-start justify-between gap-4 bg-white rounded-lg p-4 mb-3 shadow-sm">

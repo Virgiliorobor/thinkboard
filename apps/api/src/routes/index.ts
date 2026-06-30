@@ -13,7 +13,7 @@ import {
   entryTags,
   entryTopics,
 } from '../db/schema.js';
-import { slugify, excerptFrom } from '../lib/utils.js';
+import { slugify, excerptFrom, uniqueSlug } from '../lib/utils.js';
 import { extractArticle } from '../services/extractor.js';
 import { parseResearchTxt } from '../services/importer.js';
 import { bulkImportSchema, runBulkImport } from '../services/bulk-import.js';
@@ -174,13 +174,19 @@ export async function registerRoutes(app: FastifyInstance) {
           .select({ count: sql<number>`count(*)::int` })
           .from(entries)
           .where(and(eq(entries.researchId, r.id), sql`${entries.status} != 'inbox'`));
+        const [{ count: inboxCount }] = await db
+          .select({ count: sql<number>`count(*)::int` })
+          .from(entries)
+          .where(and(eq(entries.researchId, r.id), eq(entries.status, 'inbox')));
         const [{ count: topicCount }] = await db
           .select({ count: sql<number>`count(*)::int` })
           .from(topics)
           .where(eq(topics.researchId, r.id));
+        const editor = isEditor(request);
         return {
           ...mapResearchPublic(r, hasResearchAccess(request, r.slug, r.isPrivate, r.passwordHash)),
           entryCount,
+          inboxCount: editor ? inboxCount : undefined,
           topicCount,
         };
       })
@@ -200,7 +206,7 @@ export async function registerRoutes(app: FastifyInstance) {
       })
       .parse(request.body);
 
-    const slug = slugify(body.name);
+    const slug = await uniqueSlug(body.name, async (s) => !!(await getResearchBySlug(s)));
     const [research] = await db
       .insert(researches)
       .values({
@@ -237,6 +243,15 @@ export async function registerRoutes(app: FastifyInstance) {
   });
 
   app.delete('/api/researches/:slug', { preHandler: requireEditor }, async (request, reply) => {
+    const { slug } = request.params as { slug: string };
+    const research = await getResearchBySlug(slug);
+    if (!research) return reply.status(404).send({ error: 'Not found' });
+
+    await db.delete(researches).where(eq(researches.id, research.id));
+    return { ok: true, slug };
+  });
+
+  app.post('/api/researches/:slug/delete', { preHandler: requireEditor }, async (request, reply) => {
     const { slug } = request.params as { slug: string };
     const research = await getResearchBySlug(slug);
     if (!research) return reply.status(404).send({ error: 'Not found' });
