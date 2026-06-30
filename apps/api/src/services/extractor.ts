@@ -4,6 +4,22 @@ import TurndownService from 'turndown';
 
 const turndown = new TurndownService({ headingStyle: 'atx', codeBlockStyle: 'fenced' });
 
+turndown.remove(['video', 'iframe', 'script', 'style']);
+turndown.addRule('videoFallback', {
+  filter: (node) => {
+    if (node.nodeName !== 'P') return false;
+    return /doesn't support embedded videos/i.test(node.textContent ?? '');
+  },
+  replacement: () => '',
+});
+
+export function cleanBodyMd(md: string): string {
+  return md
+    .replace(/Sorry, your browser doesn't support embedded videos\.?\s*/gi, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
+
 export interface ExtractResult {
   ok: boolean;
   manualMode?: boolean;
@@ -58,7 +74,7 @@ export async function extractArticle(url: string): Promise<ExtractResult> {
       };
     }
 
-    const bodyMd = turndown.turndown(article.content ?? '');
+    const bodyMd = cleanBodyMd(turndown.turndown(article.content ?? ''));
     const text = article.textContent.replace(/\s+/g, ' ').trim();
     const excerpt = text.slice(0, 280) + (text.length > 280 ? '…' : '');
 

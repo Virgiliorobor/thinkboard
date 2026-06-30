@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { api } from '../lib/api';
+import { ArticleBody } from '../components/ArticleBody';
 
 export function EntryPage() {
   const { slug, id } = useParams<{ slug: string; id: string }>();
@@ -46,17 +47,7 @@ export function EntryPage() {
       </div>
 
       {entry.fullTextMd ? (
-        <div
-          className="prose prose-stone max-w-none prose-headings:font-serif"
-          dangerouslySetInnerHTML={{
-            __html: entry.fullTextMd
-              .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-              .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-              .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-              .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-              .replace(/\n/gim, '<br />'),
-          }}
-        />
+        <ArticleBody markdown={entry.fullTextMd} />
       ) : (
         entry.excerpt && <p className="text-muted leading-relaxed">{entry.excerpt}</p>
       )}
