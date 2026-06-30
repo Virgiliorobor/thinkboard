@@ -50,10 +50,33 @@ Then open the research inbox and publish entries.
 
 ## Docker (Coolify)
 
-Push to GitHub, connect repo in Coolify, set env vars from `.env.example`, deploy `docker-compose.yml`.
+Repo: [github.com/Virgiliorobor/thinkboard](https://github.com/Virgiliorobor/thinkboard)
 
-- Web: port 5173 (or your domain)
-- API: port 3001 (proxied via nginx in web container)
+### Coolify setup
+
+1. **+ New Resource** → **Docker Compose** (not “Application”)
+2. **Source:** GitHub → `Virgiliorobor/thinkboard` → branch **main**
+3. **Base Directory:** `/` (leave empty or `/`)
+4. **Docker Compose location** (this fixes “Please load a Compose file”):
+   - Try **`compose.yaml`** first, or **`docker-compose.yml`**
+   - Click **Reload** / **Load Compose File** if the UI has that button
+5. **Environment variables** (Coolify → Environment):
+   ```
+   POSTGRES_USER=thinkboard
+   POSTGRES_PASSWORD=<long-random>
+   POSTGRES_DB=thinkboard
+   EDITOR_PASSWORD=<your-editor-secret>
+   SESSION_SECRET=<long-random>
+   PUBLIC_API_URL=https://your-domain.com
+   ```
+6. **Domain:** assign your domain to the **`web`** service (port **80** inside the container). The nginx config proxies `/api` to the api service.
+7. **Deploy** → after first successful deploy, run migrations (Coolify → api container → Terminal):
+   ```bash
+   npm run db:migrate
+   npm run db:seed
+   ```
+
+If Compose still won’t load, paste the contents of `compose.yaml` into Coolify’s compose editor manually.
 
 ## Agent export
 
