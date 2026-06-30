@@ -157,7 +157,13 @@ export const api = {
       method: 'POST',
       body: JSON.stringify(payload),
     }),
-  publishInbox: (id: string) => request<EntryCard>(`/api/inbox/${id}/publish`, { method: 'POST' }),
+  publishInbox: (id: string) =>
+    request<EntryCard>(`/api/inbox/${encodeURIComponent(id)}/publish`, { method: 'POST' }),
+  publishAllInbox: (slug: string) =>
+    request<{ published: number }>(
+      `/api/researches/${encodeURIComponent(slug)}/inbox/publish-all`,
+      { method: 'POST' }
+    ),
   search: (q: string, research?: string) => {
     const params = new URLSearchParams({ q });
     if (research) params.set('research', research);

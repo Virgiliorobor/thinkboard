@@ -701,6 +701,20 @@ export async function registerRoutes(app: FastifyInstance) {
     return mapEntryCard(updated, comment);
   });
 
+  app.post('/api/researches/:slug/inbox/publish-all', { preHandler: requireEditor }, async (request, reply) => {
+    const { slug } = request.params as { slug: string };
+    const research = await getResearchBySlug(slug);
+    if (!research) return reply.status(404).send({ error: 'Not found' });
+
+    const updated = await db
+      .update(entries)
+      .set({ status: 'published' })
+      .where(and(eq(entries.researchId, research.id), eq(entries.status, 'inbox')))
+      .returning({ id: entries.id });
+
+    return { published: updated.length };
+  });
+
   app.get('/api/search', async (request) => {
     const { q, research } = request.query as { q?: string; research?: string };
     if (!q?.trim()) return [];
