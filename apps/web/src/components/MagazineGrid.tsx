@@ -23,8 +23,8 @@ export function MagazineGrid({
   return (
     <Masonry
       breakpointCols={breakpointCols}
-      className="flex -ml-5 w-auto"
-      columnClassName="pl-5 bg-clip-padding"
+      className="flex -ml-6 w-auto"
+      columnClassName="pl-6 bg-clip-padding"
     >
       {entries.map((entry) => (
         <MagazineCard key={entry.id} entry={entry} researchSlug={researchSlug} />

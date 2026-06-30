@@ -33,11 +33,24 @@ export interface ExtractResult {
   sourceUrl: string;
 }
 
+function isLikelyHeroImage(url: string): boolean {
+  const lower = url.toLowerCase();
+  if (/\.(svg|ico|gif)(\?|$)/i.test(lower)) return false;
+  if (/favicon|logo-icon|sprite|pixel|tracking|1x1|avatar|emoji|hardware-/i.test(lower)) return false;
+  if (lower.includes('data:image')) return false;
+  return true;
+}
+
 function pickHero(doc: Document, url: string): string | undefined {
+  const candidates: string[] = [];
   const og = doc.querySelector('meta[property="og:image"]')?.getAttribute('content');
-  if (og) return og.startsWith('http') ? og : new URL(og, url).href;
+  if (og) candidates.push(og.startsWith('http') ? og : new URL(og, url).href);
   const twitter = doc.querySelector('meta[name="twitter:image"]')?.getAttribute('content');
-  if (twitter) return twitter.startsWith('http') ? twitter : new URL(twitter, url).href;
+  if (twitter) candidates.push(twitter.startsWith('http') ? twitter : new URL(twitter, url).href);
+
+  for (const c of candidates) {
+    if (isLikelyHeroImage(c)) return c;
+  }
   return undefined;
 }
 
@@ -79,12 +92,18 @@ export async function extractArticle(url: string): Promise<ExtractResult> {
     const excerpt = text.slice(0, 280) + (text.length > 280 ? '…' : '');
 
     const articleAny = article as { topImage?: string };
+    let heroUrl = pickHero(doc, url);
+    const topImage = articleAny.topImage;
+    if (!heroUrl && topImage && isLikelyHeroImage(topImage)) {
+      heroUrl = topImage.startsWith('http') ? topImage : new URL(topImage, url).href;
+    }
+
     return {
       ok: true,
       title: article.title ?? doc.querySelector('title')?.textContent ?? url,
       excerpt,
       bodyMd,
-      heroUrl: articleAny.topImage ?? pickHero(doc, url),
+      heroUrl,
       author: article.byline ?? undefined,
       publishedAt: article.publishedTime ?? undefined,
       sourceUrl: url,
