@@ -56,17 +56,26 @@ export class ApiError extends Error {
 }
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
+  const { headers: optionHeaders, ...rest } = options ?? {};
+  const headers = new Headers(optionHeaders);
+  if (rest.body != null && !headers.has('Content-Type')) {
+    headers.set('Content-Type', 'application/json');
+  }
+
   const res = await fetch(`${API}${path}`, {
-    ...options,
+    ...rest,
     credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      ...options?.headers,
-    },
+    headers,
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new ApiError(err.error ?? `Request failed: ${res.status}`, res.status, err);
+    throw new ApiError(
+      (err as { error?: string; message?: string }).error ??
+        (err as { message?: string }).message ??
+        `Request failed: ${res.status}`,
+      res.status,
+      err as Record<string, unknown>
+    );
   }
   return res.json();
 }
@@ -99,8 +108,11 @@ export const api = {
     seedTrails?: boolean;
   }) => request<Research>('/api/researches', { method: 'POST', body: JSON.stringify(data) }),
   deleteResearch: (slug: string) =>
-    request<{ ok: boolean; slug: string }>(`/api/researches/${slug}/delete`, { method: 'POST' }),
-  research: (slug: string) => request<Research>(`/api/researches/${slug}`),
+    request<{ ok: boolean; slug: string }>(
+      `/api/researches/${encodeURIComponent(slug)}/delete`,
+      { method: 'POST' }
+    ),
+  research: (slug: string) => request<Research>(`/api/researches/${encodeURIComponent(slug)}`),
   topics: (slug: string) => request<Topic[]>(`/api/researches/${slug}/topics`),
   trails: (slug: string) => request<Trail[]>(`/api/researches/${slug}/trails`),
   createTrail: (
