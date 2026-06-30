@@ -1,0 +1,47 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-magazine}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-magazine}
+      POSTGRES_DB: ${POSTGRES_DB:-research_magazine}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U magazine -d research_magazine"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./apps/api
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-magazine}:${POSTGRES_PASSWORD:-magazine}@postgres:5432/${POSTGRES_DB:-research_magazine}
+      EDITOR_PASSWORD: ${EDITOR_PASSWORD}
+      SESSION_SECRET: ${SESSION_SECRET}
+      UPLOAD_DIR: /uploads
+      API_PORT: 3001
+    volumes:
+      - uploads:/uploads
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ./apps/web
+      args:
+        VITE_API_URL: ${PUBLIC_API_URL:-http://localhost:3001}
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
+
+volumes:
+  pgdata:
+  uploads:
