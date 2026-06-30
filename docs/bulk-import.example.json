@@ -1,0 +1,41 @@
+{
+  "$schema": "thinkboard-bulk-import-v1",
+  "research": {
+    "name": "AI Design",
+    "description": "Taste, agency playbooks, and UX patterns for AI products."
+  },
+  "topics": [
+    { "name": "Taste & the AI paradox" },
+    { "name": "Agency AI playbooks" },
+    { "name": "AI product & UX patterns" }
+  ],
+  "entries": [
+    {
+      "url": "https://example.com/article-on-taste",
+      "comment": "Really good framing on judgment vs automation.",
+      "topics": ["Taste & the AI paradox"],
+      "tags": ["starred"],
+      "fetch": true,
+      "status": "inbox"
+    },
+    {
+      "url": "https://example.com/agency-case-study",
+      "comment": "Watch later — compare to Monks approach",
+      "topics": ["Agency AI playbooks"],
+      "tags": ["watch_later"],
+      "status": "inbox"
+    },
+    {
+      "type": "note",
+      "title": "Customs control tower patterns",
+      "comment": "Standalone note with no URL — useful for pasted thoughts.",
+      "topics": ["AI product & UX patterns"],
+      "status": "inbox"
+    }
+  ],
+  "options": {
+    "fetchArticles": true,
+    "defaultStatus": "inbox",
+    "skipDuplicates": true
+  }
+}

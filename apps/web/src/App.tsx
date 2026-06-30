@@ -11,6 +11,7 @@ import { InboxPage } from './pages/InboxPage';
 import { TrailPage } from './pages/TrailPage';
 import { SearchPage } from './pages/SearchPage';
 import { UnlockResearchPage, UnlockTrailPage } from './pages/UnlockPage';
+import { ImportPage } from './pages/ImportPage';
 
 export default function App() {
   return (
@@ -47,6 +48,14 @@ export default function App() {
               element={
                 <EditorGuard>
                   <InboxPage />
+                </EditorGuard>
+              }
+            />
+            <Route
+              path="/r/:slug/import"
+              element={
+                <EditorGuard>
+                  <ImportPage />
                 </EditorGuard>
               }
             />

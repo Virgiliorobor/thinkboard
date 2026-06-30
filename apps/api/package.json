@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "db:migrate": "tsx src/db/migrate.ts",
-    "db:seed": "tsx src/scripts/seed-import.ts"
+    "db:seed": "tsx src/scripts/seed-import.ts",
+    "convert:txt": "tsx src/scripts/txt-to-bulk-json.ts"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",

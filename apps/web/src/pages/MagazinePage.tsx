@@ -68,6 +68,12 @@ export function MagazinePage() {
             >
               Inbox
             </Link>
+            <Link
+              to={`/r/${slug}/import`}
+              className="px-4 py-2 bg-white border border-stone-200 rounded-full text-sm hover:border-accent/50"
+            >
+              Import JSON
+            </Link>
           </>
         )}
         {trails.map((trail) => (

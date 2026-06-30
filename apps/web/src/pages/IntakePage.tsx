@@ -2,20 +2,39 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
 
+type ImportMode = 'none' | 'txt' | 'json';
+
 export function IntakePage() {
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [isPrivate, setIsPrivate] = useState(false);
   const [password, setPassword] = useState('');
-  const [importFile, setImportFile] = useState<string | null>(null);
+  const [importMode, setImportMode] = useState<ImportMode>('none');
+  const [importTxt, setImportTxt] = useState<string | null>(null);
+  const [importJson, setImportJson] = useState<Record<string, unknown> | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = () => setImportFile(reader.result as string);
+    reader.onload = () => {
+      const text = reader.result as string;
+      if (file.name.endsWith('.json') || file.type === 'application/json') {
+        try {
+          setImportJson(JSON.parse(text));
+          setImportTxt(null);
+          setImportMode('json');
+        } catch {
+          alert('Invalid JSON file');
+        }
+      } else {
+        setImportTxt(text);
+        setImportJson(null);
+        setImportMode('txt');
+      }
+    };
     reader.readAsText(file);
   };
 
@@ -24,14 +43,29 @@ export function IntakePage() {
     if (!name.trim()) return;
     setLoading(true);
     try {
+      const jsonResearch =
+        importJson?.research && typeof importJson.research === 'object'
+          ? (importJson.research as Record<string, unknown>)
+          : null;
+
       const research = await api.createResearch({
-        name,
-        description,
-        isPrivate,
+        name: (jsonResearch?.name as string) || name,
+        description: (jsonResearch?.description as string) || description,
+        isPrivate: (jsonResearch?.isPrivate as boolean) ?? isPrivate,
         password: isPrivate ? password : undefined,
+        seedTopics: !importJson?.topics,
+        seedTrails: true,
       });
-      if (importFile) {
-        await api.importTxt(research.slug, importFile);
+
+      if (importJson) {
+        const payload = { ...importJson };
+        if (payload.research && typeof payload.research === 'object') {
+          payload.research = { ...(payload.research as object), name: research.name };
+        }
+        await api.bulkImport(research.slug, payload);
+        navigate(`/r/${research.slug}/inbox`);
+      } else if (importTxt) {
+        await api.importTxt(research.slug, importTxt);
         navigate(`/r/${research.slug}/inbox`);
       } else {
         navigate(`/r/${research.slug}`);
@@ -94,10 +128,25 @@ export function IntakePage() {
         )}
 
         <div>
-          <label className="block text-sm font-medium mb-2">Import links file (optional)</label>
-          <input type="file" accept=".txt" onChange={handleFile} className="text-sm text-muted" />
-          {importFile && (
-            <p className="text-xs text-emerald-600 mt-2">File loaded — entries go to inbox for review.</p>
+          <label className="block text-sm font-medium mb-2">Bulk import (optional)</label>
+          <p className="text-xs text-muted mb-2">
+            Upload a <strong>.json</strong> bulk-import file (recommended) or legacy <strong>.txt</strong> links file.
+          </p>
+          <input
+            type="file"
+            accept=".json,.txt,application/json,text/plain"
+            onChange={handleFile}
+            className="text-sm text-muted"
+          />
+          {importMode === 'json' && (
+            <p className="text-xs text-emerald-600 mt-2">
+              JSON loaded — entries go to inbox for review.
+            </p>
+          )}
+          {importMode === 'txt' && (
+            <p className="text-xs text-emerald-600 mt-2">
+              TXT loaded — entries go to inbox for review.
+            </p>
           )}
         </div>
 

@@ -1,0 +1,773 @@
+{
+  "$schema": "thinkboard-bulk-import-v1",
+  "research": {
+    "name": "AI Design",
+    "description": "Taste, agency AI playbooks, UX patterns, brand differentiation, and visual inspiration — curated design research."
+  },
+  "topics": [
+    {
+      "name": "Taste & the AI paradox"
+    },
+    {
+      "name": "Agency AI playbooks"
+    },
+    {
+      "name": "AI product & UX patterns"
+    },
+    {
+      "name": "Brand as differentiator"
+    },
+    {
+      "name": "Visual inspiration"
+    },
+    {
+      "name": "Anti-patterns"
+    }
+  ],
+  "entries": [
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns"
+      ],
+      "url": "https://www.behance.net/gallery/250473627/THEWED-MAGAZINE?tracking_source=curated_galleries_ui-ux"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns"
+      ],
+      "url": "https://medium.com/orizon-design/ux-ui-for-saas-startups-best-practices-to-boost-user-satisfaction-da1233d5c6c9"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns"
+      ],
+      "url": "https://www.behance.net/gallery/242173443/Tekprivacy?tracking_source=curated_galleries_ui-ux"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns"
+      ],
+      "url": "https://www.behance.net/gallery/237904023/Elysium?tracking_source=project_owner_other_projects"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns"
+      ],
+      "url": "https://www.elysiumgroup.it/"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns"
+      ],
+      "url": "https://andreigorskikh.digital/"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns"
+      ],
+      "url": "https://polymorphic.capital/"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns"
+      ],
+      "url": "https://adamhickey.com/"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns"
+      ],
+      "url": "https://clay.global/blog/ux-guide/ui-elements"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Agency AI playbooks",
+        "AI product & UX patterns"
+      ],
+      "url": "https://www.anml.com/blog/how-to-evaluate-a-ux-ui-design-partner-beyond-the-portfolio"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Agency AI playbooks",
+        "Brand as differentiator"
+      ],
+      "url": "https://www.anml.com/blog/your-brand-isn-t-static-it-lives-in-the-experience",
+      "comment": "this is a great article also",
+      "tags": [
+        "starred"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.anml.com/blog/how-to-choose-the-best-color-palette-in-web-and-product-design",
+      "comment": "this is a great article",
+      "tags": [
+        "starred"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.anml.com/blog/design-system-vs-component-library-vs-pattern-library-what-s-the-difference"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns"
+      ],
+      "url": "https://medium.com/orizon-design/mastering-web-design-in-2024-5-essential-tips-for-creating-a-visually-stunning-website-673533c9d896"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.anml.com/"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Agency AI playbooks"
+      ],
+      "url": "https://designmap.com/"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Agency AI playbooks"
+      ],
+      "url": "https://slick.global/our-works/"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Agency AI playbooks"
+      ],
+      "url": "https://slick.global/works/pebble-fintechapp/"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Agency AI playbooks"
+      ],
+      "url": "https://slick.global/works/the-collaboratory/"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Agency AI playbooks",
+        "AI product & UX patterns"
+      ],
+      "url": "https://slick.global/ui-ux-design-for-ai-products/"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Agency AI playbooks",
+        "AI product & UX patterns"
+      ],
+      "url": "https://www.anml.com/blog/the-good-enough-epidemic",
+      "comment": "this one shows the real problem, what i feel about the design"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.anml.com/blog/product-design-best-practices-for-2026",
+      "comment": "This is something to implement",
+      "tags": [
+        "implement"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": false,
+      "topics": [
+        "AI product & UX patterns"
+      ],
+      "type": "note",
+      "title": "Customs control tower patterns",
+      "comment": "Design layouts that can flex based on AI-driven content\nExample: A financial dashboard that changes widgets and data visuals based on user goals (saving vs. investing) and real-time market conditions.\n\nPlan for multiple data states and unexpected results\nExample: A travel app that handles AI-generated itinerary changes on the fly—including canceled flights, last-minute hotel options, and user-preferred alternatives.\n\nConsider how logic and behavior shape the user journey, not just layout\nExample: An e-commerce site that reorders category pages dynamically based on AI predictions about what the user is most likely to browse next."
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Taste & the AI paradox"
+      ],
+      "url": "https://shedsgns.me/taste",
+      "comment": "this one is really great essay on the same problem, same thinking is really good and how i feel",
+      "tags": [
+        "starred"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks",
+        "Brand as differentiator"
+      ],
+      "url": "https://rga.com/",
+      "comment": "this is a great agency doing great work their approach to AI is interesting and might be what is coming Systematically leveraging AI technologies under the hood in creative and technology work is quickly becoming table stakes. We help brands go a step further, not only using AI to do things we already do better, but to design new brand experiences that weren’t possible before.",
+      "tags": [
+        "starred"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks",
+        "Brand as differentiator"
+      ],
+      "url": "https://rga.com/work/founderland-pam",
+      "comment": "AI Application Design\nDesigning and developing new customer experiences including assistants, multi-modal and agentic AI applications, with expertise across platforms including Google Gemini, OpenAI, Anthropic and more.\nAI Content Studio\nDynamic, personalized content, including model selection, content automation, as well as overall creative direction. Specialized in tools including Runway, Veo 2, Elevenlabs and others.\nBrand AI Tools\nAI-enabled tools to help teams deliver brand systems cohesively and efficiently at scale with custom model finetuning using tools Flux, Adobe Firefly, ComfyUI and more complex custom brand AI-enabled applications.\nAI Strategy & Consulting\nIntegrating AI across the brand and marketing ecosystem via pilot programs and Adoption Accelerator models.\n\nexample of rga"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.addition.ml/about",
+      "comment": "this is another example of the AI application"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.addition.ml/work/google-idea-generator"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.monks.com/"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.monks.com/artificial-intelligence"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks"
+      ],
+      "url": "https://monksflow.ai/home/"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.monks.com/thinking",
+      "comment": "this is something to follow",
+      "tags": [
+        "follow"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks",
+        "Brand as differentiator"
+      ],
+      "url": "https://www.monks.com/articles/your-brands-dna-ultimate-ai-differentiator",
+      "comment": "this have great insights the answer to the differentiation dilemma doesn't lie in mastering the same off-the-shelf tools as competitors. Instead, it lies in building a proprietary system fueled by a company's unique data, intelligence, and history.",
+      "tags": [
+        "starred"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Brand as differentiator"
+      ],
+      "url": "https://www.youtube.com/watch?v=O4ZK9enGwcI",
+      "comment": "True differentiation comes from the quality and uniqueness of your inputs. The most valuable assets your brand possesses are your own historical performance data, your nuanced audience insights, your risk tolerance, and your strategic knowledge. Altogether, these make up your brand’s DNA. More than just quantitative data, brand DNA includes the qualitative elements that are harder to measure but essential to your brand’s identity: your unique point of view, your strategic decisions about which markets to enter (and which to avoid), and your specific interpretation of complex industry regulations. These are the inputs that contain your competitive edge.\n\nthis is a watch later, some perspectives",
+      "tags": [
+        "watch_later"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks",
+        "Brand as differentiator"
+      ],
+      "url": "https://www.monks.com/articles/taming-brand-chaos-bespoke-ai-agent-solutions",
+      "comment": "this is a great example of a use compared to customs, on how agents can help go through documents",
+      "tags": [
+        "starred"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Taste & the AI paradox",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.instrument.com/latest/the-ai-paradox",
+      "comment": "this is what I mean by taste or feeling"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Taste & the AI paradox",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.instrument.com/latest/ai-adoption-challenge",
+      "comment": "Think about it. The judgment that makes your best people valuable is the stuff they do without thinking. That instinct is the asset. It's also invisible, built over years, living in people's heads, rarely written down. It's exactly what an agent needs from you. And the single hardest thing to put into words.\nThat's taste. It's your edge, but it's also the bottleneck.\n\nan article showing a workflow on how to implement and sale AI, how to communicate and build trust",
+      "tags": [
+        "implement"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.instrument.com/",
+      "comment": "this is another great looking agency",
+      "tags": [
+        "starred"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.instrument.com/latest/is-design-creative",
+      "comment": "an article with concepts and descriptions"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.instrument.com/latest/building-the-future-of-ai",
+      "comment": "Creativity is the leap. It’s the introduction of lived experience into problem-solving. It’s the human act of connecting dots that machines can’t see. It’s the one move they’ll never make. That leap is what designers bring when they pull inspiration from a whole different domain, when they think laterally. That is creativity.   #my note: Ok then AI should serve everything so the human can connect the dots\nNo. Design is a methodology. It’s a structured way of working. It is not, by definition, creative.\nBut you are. And when you bring your lived experience—your leaps, your stories—into the design process, that’s when it becomes unforgettable"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.instrument.com/latest/design-to-code",
+      "comment": "this approach might work on designing tools and systems"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.instrument.com/latest/making-ux-feel-alive",
+      "comment": "exactly the same problem and issue"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "AI product & UX patterns"
+      ],
+      "url": "https://artpower.io/tortoise",
+      "comment": "Sometimes it works. Sometimes it really doesn’t. We’ve pitched ideas that looked amazing in our heads and flopped in front of a client. But even the flops teach us something. And sometimes, they spark the thing that works.\nWe’d rather show a prototype that doesn’t quite land than another Figma flow that looks like every other app. Because sameness is safe — and also deeply boring.\n\nthis is the result, which ironically now looks like everything in the web the exact palette I want to avoid"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration"
+      ],
+      "url": "https://www.tparkes.com/timby",
+      "tags": [
+        "generic"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration"
+      ],
+      "url": "https://www.tparkes.com/glide",
+      "tags": [
+        "potentially_good"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration"
+      ],
+      "url": "https://shedsgns.me/infinity",
+      "tags": [
+        "potentially_good"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration"
+      ],
+      "url": "https://www.shapes.tools/",
+      "tags": [
+        "potentially_good"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration"
+      ],
+      "url": "https://asciinator.app/",
+      "tags": [
+        "potentially_good"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration"
+      ],
+      "url": "https://www.baunfire.com/",
+      "tags": [
+        "potentially_good"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "AI product & UX patterns"
+      ],
+      "url": "https://www.baunfire.com/work/optimal-dynamics",
+      "comment": "a great example of a webpage design system presentation",
+      "tags": [
+        "starred"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "AI product & UX patterns"
+      ],
+      "url": "https://www.baunfire.com/work/instabase",
+      "comment": "another good example of a case study or how to present a design system"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration"
+      ],
+      "url": "https://www.optimaldynamics.com/"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration"
+      ],
+      "url": "https://www.optimaldynamics.com/platform/decision-automation",
+      "tags": [
+        "potentially_good"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.akqa.com/work/coreweave/unlocking-ais-full-potential/"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.akqa.com/work/mparticle/the-joy-of-being-known/",
+      "comment": "another great example Making the highly technical, deeply personal.",
+      "tags": [
+        "starred"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "Brand as differentiator",
+        "AI product & UX patterns"
+      ],
+      "url": "https://www.mparticle.com/",
+      "comment": "As a B2B company, mParticle is the original leader in customer data platform technology — the back-end systems that collect detailed customer data, power interactive digital experiences and personalise them on an individual level.\nFar more than most behind-the-scenes B2B platforms, mParticle’s innovation and intelligence puts customers at the centre of every interaction. A unique offering helps companies get a total picture of a customer and serve their needs on a more personal level. However, this deeply human perspective was lost in a crowded technical category, where differentiation was unclear.\nmParticle partnered with AKQA to refine its brand strategy, spotlighting its thought leadership, and clarify its brand narrative to stand out from the competition. Building on the new approach, AKQA helped mParticle create a new visual identity and design the next generation of its website.\nTurning customer data into customer joy.\nTo humanise a highly technical AI-powered platform, AKQA distilled the more profound emotional impact of the technology: the joy of being seen and known as an individual. With this strategic foundation, the manifesto, narrative and messaging strategy coalesced into a visual identity system. Together, these elements elevate mParticle to show up as thought leaders with a uniquely human point of view — one that departs from the industry’s ubiquitous technical jargon and stereotypical technology platform designs filled with bright colours and graphics.\nShowing up as the leaders they are.\nmParticle’s employees feel galvanised around a motivating purpose, and the company’s leadership and product vision are sharpened with a clear focal point. AKQA supported mParticle’s step forward with the confidence and tools to lead their category: a reinforced identity, strong platform narrative and website design that speaks to their core audience with an emotional resonance like nobody else in the industry.",
+      "tags": [
+        "potentially_good"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "AI product & UX patterns"
+      ],
+      "url": "https://www.metalab.com",
+      "comment": "this is a company focused on making UI"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.deptagency.com/insights/",
+      "comment": "this is a great source of information and insight",
+      "tags": [
+        "starred"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.deptagency.com/insight/the-ai-impact-gap/",
+      "comment": "an article on the real impact on profit of AI implementation",
+      "tags": [
+        "implement"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.deptagency.com/insight/why-ai-has-yet-to-lead-to-a-measurable-increase-in-corporate-productivity/",
+      "comment": "this is about context and what AI lacks in terms of human interaction, and what the agency is doing to fix that"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "Agency AI playbooks",
+        "AI product & UX patterns"
+      ],
+      "url": "https://www.deptagency.com/case/data-consumption-agentic-ai-mcp/",
+      "comment": "this is an interesting use and how is not just chat UI"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.deptagency.com/solutions/ai-transformation/",
+      "comment": "other agency showing AI solution"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "Agency AI playbooks",
+        "AI product & UX patterns"
+      ],
+      "url": "https://www.deptagency.com/insight/a-practical-guide-to-implementing-ai-agents/",
+      "comment": "a take on how to implement AI agents within organizations",
+      "tags": [
+        "implement"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.deptagency.com/insight/on-ai-creators-cultures-of-experimentation-cannes-2026/",
+      "comment": "this tlaks about a panel it is interesting that it shows that rough edges are the proof of human involved and quality"
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "Agency AI playbooks"
+      ],
+      "url": "https://www.akqa.com/work/ibm/breaking-open-the-black-box/",
+      "comment": "IBM watsonx.governance activation — cymatics black-box demo at Think. Rich case study on making AI model transparency tangible.",
+      "tags": [
+        "potentially_good"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Visual inspiration",
+        "AI product & UX patterns"
+      ],
+      "url": "https://www.tparkes.com/information",
+      "comment": "My design process aims to uncover the areas that businesses and organisations are different, and investing design time to make these values shine."
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Anti-patterns"
+      ],
+      "url": "https://jamesfinch.co.uk/?ref=productdesignportfolios",
+      "tags": [
+        "generic"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Anti-patterns"
+      ],
+      "url": "https://jamesfinch.co.uk/project/meanwhile-group/",
+      "tags": [
+        "generic"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Anti-patterns"
+      ],
+      "url": "https://whyramachandran.design",
+      "tags": [
+        "generic"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Anti-patterns"
+      ],
+      "url": "https://roomfive.net/burger-king-design-system/",
+      "tags": [
+        "generic"
+      ]
+    },
+    {
+      "status": "inbox",
+      "fetch": true,
+      "topics": [
+        "Anti-patterns"
+      ],
+      "url": "https://richlyai.com/blog/public-skepticism-around-ai/",
+      "comment": "good article with what people find threatening or skeptic about AI"
+    }
+  ],
+  "options": {
+    "fetchArticles": false,
+    "defaultStatus": "inbox",
+    "skipDuplicates": true
+  }
+}

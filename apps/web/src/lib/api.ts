@@ -94,6 +94,8 @@ export const api = {
     description?: string;
     isPrivate?: boolean;
     password?: string;
+    seedTopics?: boolean;
+    seedTrails?: boolean;
   }) => request<Research>('/api/researches', { method: 'POST', body: JSON.stringify(data) }),
   research: (slug: string) => request<Research>(`/api/researches/${slug}`),
   topics: (slug: string) => request<Topic[]>(`/api/researches/${slug}/topics`),
@@ -125,6 +127,20 @@ export const api = {
     request<{ imported: number }>(`/api/researches/${slug}/import`, {
       method: 'POST',
       body: JSON.stringify({ content }),
+    }),
+  bulkImport: (
+    slug: string,
+    payload: Record<string, unknown>
+  ) =>
+    request<{
+      imported: number;
+      skipped: number;
+      entryIds: string[];
+      topicsCreated: number;
+      tagsCreated: number;
+    }>(`/api/researches/${slug}/bulk-import`, {
+      method: 'POST',
+      body: JSON.stringify(payload),
     }),
   publishInbox: (id: string) => request<EntryCard>(`/api/inbox/${id}/publish`, { method: 'POST' }),
   search: (q: string, research?: string) => {

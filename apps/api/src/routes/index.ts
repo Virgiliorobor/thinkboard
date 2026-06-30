@@ -16,6 +16,7 @@ import {
 import { slugify, excerptFrom } from '../lib/utils.js';
 import { extractArticle } from '../services/extractor.js';
 import { parseResearchTxt } from '../services/importer.js';
+import { bulkImportSchema, runBulkImport } from '../services/bulk-import.js';
 import { requireEditor, isEditor, hasResearchAccess, hasTrailAccess, setUnlockCookie } from '../lib/auth.js';
 import { hashPassword, verifyPassword, unlockToken } from '../lib/password.js';
 
@@ -643,6 +644,24 @@ export async function registerRoutes(app: FastifyInstance) {
     }
 
     return { imported: created.length, entryIds: created };
+  });
+
+  app.post('/api/researches/:slug/bulk-import', { preHandler: requireEditor }, async (request, reply) => {
+    const { slug } = request.params as { slug: string };
+    const research = await getResearchBySlug(slug);
+    if (!research) return reply.status(404).send({ error: 'Not found' });
+
+    const payload = bulkImportSchema.parse(request.body);
+
+    if (payload.research?.description) {
+      await db
+        .update(researches)
+        .set({ description: payload.research.description })
+        .where(eq(researches.id, research.id));
+    }
+
+    const result = await runBulkImport(research.id, payload);
+    return result;
   });
 
   app.post('/api/inbox/:id/publish', { preHandler: requireEditor }, async (request, reply) => {
